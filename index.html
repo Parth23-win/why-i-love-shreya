@@ -3,38 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Why I Love Shreya</title>
+    <title>Why I Love Shreya 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Why I Love Shreya</h1>
-    </header>
-    <main>
-        <section id="memory-quiz">
-            <h2>Memory Quiz</h2>
-            <p>Test your memory with our fun quiz!</p>
-            <!-- Memory quiz content here -->
-        </section>
-        <section id="no-button-prank">
-            <h2>No Button Prank</h2>
-            <p>Enjoy the no button prank!</p>
-            <!-- No button prank content here -->
-        </section>
-        <section id="love-coupons-store">
-            <h2>Love Coupons Store</h2>
-            <p>Get your love coupons!</p>
-            <!-- Love coupon store content here -->
-        </section>
-        <section id="animations">
-            <h2>Animations</h2>
-            <p>Check out our amazing animations!</p>
-            <!-- Animations content here -->
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Why I Love Shreya</p>
+
+    <!-- Floating hearts background container -->
+    <div id="floating-hearts" aria-hidden="true"></div>
+
+    <!-- Confetti container -->
+    <div id="confetti-container" aria-hidden="true"></div>
+
+    <!-- ===== WELCOME SCREEN ===== -->
+    <section id="welcome-screen" class="screen active">
+        <div class="welcome-card">
+            <div class="heart-icon">💖</div>
+            <h1>Why I Love Shreya</h1>
+            <p class="subtitle">A little journey made just for you ✨</p>
+            <p class="description">Embark on a romantic quest filled with memories, laughter, and love — all waiting to be unlocked.</p>
+            <button id="start-btn" class="btn btn-primary" onclick="startJourney()">Begin Your Quest 🌹</button>
+        </div>
+    </section>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav id="main-nav" class="hidden" aria-label="Main navigation">
+        <div class="nav-inner">
+            <span class="nav-logo">💕 Shreya's Quest</span>
+            <div class="nav-links">
+                <button class="nav-btn active" onclick="goToSection('quiz-screen')" data-section="quiz-screen">🧠 Quiz</button>
+                <button class="nav-btn" onclick="goToSection('prank-screen')" data-section="prank-screen">😂 Prank</button>
+                <button class="nav-btn" onclick="goToSection('coupons-screen')" data-section="coupons-screen">🎟️ Coupons</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== MEMORY QUIZ SCREEN ===== -->
+    <section id="quiz-screen" class="screen hidden" aria-label="Memory Quiz">
+        <div class="screen-container">
+            <h2 class="screen-title">🧠 The "Why I Love You" Quest</h2>
+            <p class="screen-subtitle">Answer these questions to unlock heartfelt messages 💌</p>
+
+            <!-- Progress bar -->
+            <div class="progress-bar-wrap" role="progressbar" aria-label="Quiz progress">
+                <div id="quiz-progress-bar" class="progress-bar"></div>
+            </div>
+            <p id="quiz-progress-text" class="progress-text">Question 1 of 5</p>
+
+            <!-- Quiz card -->
+            <div id="quiz-card" class="quiz-card">
+                <p id="quiz-question" class="quiz-question"></p>
+                <div id="quiz-options" class="quiz-options"></div>
+                <div id="quiz-feedback" class="quiz-feedback hidden"></div>
+            </div>
+
+            <!-- Final celebration -->
+            <div id="quiz-complete" class="quiz-complete hidden">
+                <div class="celebration-icon">🎉</div>
+                <h3>You've unlocked all the messages!</h3>
+                <p id="quiz-final-message" class="final-message"></p>
+                <button class="btn btn-primary" onclick="goToSection('prank-screen')">Next: The Prank 😂</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NO BUTTON PRANK SCREEN ===== -->
+    <section id="prank-screen" class="screen hidden" aria-label="No Button Prank">
+        <div class="screen-container">
+            <h2 class="screen-title">😂 The Prank!</h2>
+            <p class="screen-subtitle">Think carefully before you answer…</p>
+
+            <div id="prank-card" class="prank-card">
+                <p class="prank-question">Do you think I could ever stop loving you? 💭</p>
+                <div id="prank-buttons" class="prank-buttons">
+                    <button id="yes-btn" class="btn btn-yes" onclick="handleYes()">Yes 💔</button>
+                    <button id="no-btn" class="btn btn-no">No 💕</button>
+                </div>
+                <p id="prank-hint" class="prank-hint">Psst… try clicking "No" 😉</p>
+            </div>
+
+            <div id="prank-result" class="prank-result hidden">
+                <div class="celebration-icon">💕</div>
+                <h3>That's right!</h3>
+                <p>I'll love you forever and ever! Nothing in this universe could ever make me stop. 💖</p>
+                <button class="btn btn-primary" onclick="goToSection('coupons-screen')">Claim Your Coupons 🎟️</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LOVE COUPONS STORE ===== -->
+    <section id="coupons-screen" class="screen hidden" aria-label="Love Coupons Store">
+        <div class="screen-container">
+            <h2 class="screen-title">🎟️ Love Coupons Store</h2>
+            <p class="screen-subtitle">Spend your Love Points on real-life rewards! 💝</p>
+
+            <!-- Balance -->
+            <div class="balance-card" aria-live="polite">
+                <span class="balance-label">💖 Your Love Points</span>
+                <span id="love-points-display" class="balance-amount">500</span>
+            </div>
+
+            <!-- Coupon grid -->
+            <div id="coupons-grid" class="coupons-grid" role="list"></div>
+
+            <!-- Redeemed coupons list -->
+            <div id="redeemed-section" class="redeemed-section hidden">
+                <h3>🎀 Your Redeemed Coupons</h3>
+                <p class="redeemed-note">Show these to claim your reward! 😊</p>
+                <ul id="redeemed-list" class="redeemed-list"></ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Redemption modal -->
+    <div id="redeem-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <div class="modal-icon">🎉</div>
+            <h3 id="modal-title">Coupon Redeemed!</h3>
+            <p id="modal-message"></p>
+            <button class="btn btn-primary" onclick="closeModal()">Yay! 💕</button>
+        </div>
+    </div>
+
+    <footer id="main-footer" class="hidden">
+        <p>Made with 💖 just for Shreya &nbsp;|&nbsp; &copy; 2026</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
